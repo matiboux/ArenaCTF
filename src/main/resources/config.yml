@@ -1,0 +1,16 @@
+# -----------------
+# Main configuration for ArenaCTF
+#
+# Documentation: https://docs.bplug.in/books/additional-gamemodes/chapter/capture-the-flag
+# Support: https://discord.gg/tMVPVJf
+# GitHub: https://github.com/BattlePlugins/ArenaCTF
+# -----------------
+config-version: 2.0 # The config version, do not change!
+
+# How long a player must be in the capture of a region to capture
+# the flag
+capture-time: 5s
+
+# How long until a flag is returned back to it's home base
+# once a player drops it
+drop-time: 30s

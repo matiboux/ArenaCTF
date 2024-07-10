@@ -1,0 +1,8 @@
+name: ArenaCTF
+main: org.battleplugins.arena.ctf.ArenaCtf
+version: ${version}
+description: A capture the flag mode for BattleArena.
+author: BattlePlugins
+website: https://battleplugins.org
+api-version: 1.19
+depend: [BattleArena]
