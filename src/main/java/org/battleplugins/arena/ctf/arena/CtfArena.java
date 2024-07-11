@@ -9,6 +9,7 @@ import org.battleplugins.arena.event.ArenaEventHandler;
 import org.battleplugins.arena.event.arena.ArenaPhaseCompleteEvent;
 import org.battleplugins.arena.event.arena.ArenaPhaseStartEvent;
 import org.battleplugins.arena.event.player.ArenaDeathEvent;
+import org.battleplugins.arena.event.player.ArenaLeaveEvent;
 
 public class CtfArena extends Arena {
 
@@ -46,6 +47,13 @@ public class CtfArena extends Arena {
 
     @ArenaEventHandler
     public void onDeath(ArenaDeathEvent event) {
+        if (event.getCompetition() instanceof CtfCompetition ctfCompetition) {
+            ctfCompetition.dropFlag(event.getArenaPlayer());
+        }
+    }
+
+    @ArenaEventHandler
+    public void onDeath(ArenaLeaveEvent event) {
         if (event.getCompetition() instanceof CtfCompetition ctfCompetition) {
             ctfCompetition.dropFlag(event.getArenaPlayer());
         }
