@@ -11,6 +11,7 @@ modules:
   - arena-restoration
   - classes
   - scoreboards
+  - team-colors
 lives:
   enabled: false
   amount: 1
