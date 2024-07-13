@@ -5,7 +5,7 @@ A capture the flag plugin using [BattleArena](https://github.com/BattlePlugins/B
 ArenaCTF is a capture the flag plugin for BattleArena. It comes with multiple configuration options, such as the capture time, flag drop time, and many other options offered by BattleArena.
 
 ## Documentation
-Full documentation for ArenaCTF can be found on the [BattleDocs](https://docs.bplug.in/books/additional-gamemodes/chapter/ctf) website.
+Full documentation for ArenaCTF can be found on the [BattleDocs](https://docs.bplug.in/books/additional-gamemodes/chapter/capture-the-flag) website.
 
 ## Commands
 | Command                               | Description                            |
