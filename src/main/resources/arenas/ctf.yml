@@ -7,6 +7,10 @@ team-options:
   team-amount: 2
   team-selection: pick
   shared-spawn-points: true
+modules:
+  - arena-restoration
+  - classes
+  - scoreboards
 lives:
   enabled: false
   amount: 1
@@ -31,6 +35,7 @@ events:
   on-leave:
     - clear-effects
     - restore{types=all}
+    - remove-scoreboard
   on-death:
     - respawn
     - clear-inventory
@@ -38,6 +43,7 @@ events:
     - delay{ticks=1}
     - give-effects{effects=[speed{duration=300;amplifier=1}]}
     - teleport{location=team_spawn;random=false}
+    - equip-class{class=warrior}
   on-flag-capture:
     - delay{ticks=20}
     - broadcast{message=<newline><yellow>The %team% team has captured the flag <gold>%flags_captured%</gold> time(s)!</yellow><newline>}
@@ -49,6 +55,7 @@ options:
   - keep-inventory{enabled=true}
   - keep-experience{enabled=true}
   - team-selection{enabled=true}
+  - class-equip-only-selects{enabled=true}
 initial-phase: waiting
 phases:
   waiting:
@@ -56,6 +63,12 @@ phases:
     next-phase: countdown
     options:
       - damage-players{option=never}
+      - class-equipping{enabled=true}
+    events:
+      on-start:
+        - apply-scoreboard{scoreboard=waiting}
+      on-join:
+        - apply-scoreboard{scoreboard=waiting}
   countdown:
     allow-join: true
     allow-spectate: true
@@ -64,7 +77,12 @@ phases:
     countdown-time: 5
     options:
       - damage-players{option=never}
+      - class-equipping{enabled=true}
     events:
+      on-start:
+        - apply-scoreboard{scoreboard=countdown}
+      on-join:
+        - apply-scoreboard{scoreboard=countdown}
       on-complete:
         - join-random-team
         - teleport{location=team_spawn}
@@ -79,7 +97,9 @@ phases:
       - team-selection{enabled=false}
     events:
       on-start:
+        - equip-class{class=warrior}
         - place-flags
+        - apply-scoreboard{scoreboard=ingame-list}
       on-complete:
         - remove-flags
   victory:
@@ -94,6 +114,7 @@ phases:
         - clear-effects
         - leave
         - restore-arena
+        - remove-scoreboard
       on-victory:
         - send-message{message=<green>Congrats, you won!</green>}
         - play-sound{sound=entity.player.levelup;pitch=1;volume=1}
