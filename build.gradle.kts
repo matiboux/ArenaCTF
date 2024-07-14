@@ -61,4 +61,8 @@ modrinth {
     changelog.set(System.getenv("CHANGELOG") ?: "")
     uploadFile.set(tasks.jar)
     gameVersions.set(supportedVersions)
+    
+    dependencies {
+        required.project("battlearena")
+    }
 }
