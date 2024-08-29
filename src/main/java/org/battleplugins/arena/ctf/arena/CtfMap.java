@@ -2,6 +2,7 @@ package org.battleplugins.arena.ctf.arena;
 
 import org.battleplugins.arena.Arena;
 import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.arena.competition.LiveCompetition;
 import org.battleplugins.arena.competition.map.LiveCompetitionMap;
 import org.battleplugins.arena.competition.map.MapFactory;
 import org.battleplugins.arena.competition.map.MapType;
@@ -50,7 +51,7 @@ public class CtfMap extends LiveCompetitionMap {
     }
 
     @Override
-    public Competition<?> createCompetition(Arena arena) {
+    public LiveCompetition<CtfCompetition> createCompetition(Arena arena) {
         if (!(arena instanceof CtfArena ctfArena)) {
             throw new IllegalArgumentException("Arena must be a CTF arena!");
         }
