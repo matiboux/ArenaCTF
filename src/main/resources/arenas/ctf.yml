@@ -7,6 +7,11 @@ team-options:
   team-amount: 2
   team-selection: pick
   shared-spawn-points: true
+tracking:
+  stats-tracked:
+    flags-captured:
+      key: flags_captured
+      type: add
 modules:
   - arena-restoration
   - classes
