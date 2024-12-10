@@ -27,6 +27,8 @@ victory-conditions:
     win-after: 3
   time-limit:
     time-limit: 10m
+  teams-alive:
+    amount: 1
 events:
   on-join:
     - store{types=all}
