@@ -10,6 +10,10 @@ import org.battleplugins.arena.resolver.ResolverProvider;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+import org.battleplugins.arena.stat.ArenaStat;
+import org.battleplugins.arena.team.ArenaTeam;
+import java.util.Set;
+
 @EventTrigger("on-flag-capture")
 public class ArenaFlagCaptureEvent extends BukkitArenaPlayerEvent {
     public static final ResolverKey<Integer> FLAGS_CAPTURED = ResolverKey.create("flags-captured", Integer.class);
@@ -20,10 +24,28 @@ public class ArenaFlagCaptureEvent extends BukkitArenaPlayerEvent {
         super(player.getArena(), player);
     }
 
+    public int computeFlagsTotalCaptured(ArenaPlayer player) {
+        ArenaTeam team = player.getTeam();
+        if (team == null) {
+            return;
+        }
+
+        ArenaStat<Number> stat = (ArenaStat<Number>) ArenaStats.get("flags-captured");
+
+        Set<ArenaPlayer> players = this.competition.getTeamManager().getPlayersOnTeam(team);
+        int score = 0;
+        for (ArenaPlayer teamPlayer : players) {
+            score += teamPlayer.stat(stat).orElse(0).intValue();
+        }
+
+        return score;
+    }
+
     @Override
     public Resolver resolve() {
         return super.resolve().toBuilder()
                 .define(FLAGS_CAPTURED, ResolverProvider.simple(this.getArenaPlayer().getStat(ArenaCtf.FLAGS_CAPTURED_STAT), String::valueOf))
+                .define(FLAGS_TOTAL_CAPTURED, ResolverProvider.simple(computeFlagsTotalCaptured(this.getArenaPlayer()), String::valueOf))
                 .build();
     }
 
