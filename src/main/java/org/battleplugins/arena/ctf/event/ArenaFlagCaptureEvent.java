@@ -46,7 +46,7 @@ public class ArenaFlagCaptureEvent extends BukkitArenaPlayerEvent {
     public Resolver resolve() {
         return super.resolve().toBuilder()
                 .define(FLAGS_CAPTURED, ResolverProvider.simple(this.getArenaPlayer().getStat(ArenaCtf.FLAGS_CAPTURED_STAT), String::valueOf))
-                .define(FLAGS_TOTAL_CAPTURED, ResolverProvider.simple(computeFlagsTotalCaptured(this.getArenaPlayer()), String::valueOf))
+                .define(FLAGS_TOTAL_CAPTURED, ResolverProvider.simple(this.computeFlagsTotalCaptured(this.getArenaPlayer()), String::valueOf))
                 .build();
     }
 
