@@ -8,6 +8,8 @@ import org.battleplugins.arena.ctf.ArenaCtf;
 import org.battleplugins.arena.ctf.CtfMessages;
 import org.battleplugins.arena.ctf.CtfUtil;
 import org.battleplugins.arena.ctf.event.ArenaFlagCaptureEvent;
+import org.battleplugins.arena.ctf.event.ArenaFlagDropEvent;
+import org.battleplugins.arena.ctf.event.ArenaFlagPickupEvent;
 import org.battleplugins.arena.ctf.event.ArenaFlagReturnEvent;
 import org.battleplugins.arena.messages.Message;
 import org.battleplugins.arena.team.ArenaTeam;
@@ -183,6 +185,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
         flag.dropTime = -1;
 
         this.capturedFlags.put(player, flag);
+        this.getArena().getEventManager().callEvent(new ArenaFlagPickupEvent(player));
         this.broadcast(CtfMessages.FLAG_PICKED_UP, flag.team.getFormattedName(), Component.text(player.getPlayer().getName()));
         this.broadcastSounds(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, Sound.ENTITY_ALLAY_DEATH, 1.0f);
 
@@ -195,6 +198,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
             return;
         }
 
+        this.getArena().getEventManager().callEvent(new ArenaFlagDropEvent(player));
         this.broadcast(CtfMessages.FLAG_DROPPED, flag.team.getFormattedName(), Component.text(player.getPlayer().getName()));
         this.broadcastSounds(player, Sound.BLOCK_RESPAWN_ANCHOR_DEPLETE, Sound.BLOCK_AMETHYST_BLOCK_BREAK, 1.0f);
 
