@@ -17,6 +17,7 @@ import java.util.Set;
 @EventTrigger("on-flag-capture")
 public class ArenaFlagCaptureEvent extends BukkitArenaPlayerEvent {
     public static final ResolverKey<Integer> FLAGS_CAPTURED = ResolverKey.create("flags-captured", Integer.class);
+    public static final ResolverKey<Integer> FLAGS_TOTAL_CAPTURED = ResolverKey.create("flags-total-captured", Integer.class);
 
     private static final HandlerList HANDLERS = new HandlerList();
 
