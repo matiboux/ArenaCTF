@@ -27,22 +27,18 @@ public class ArenaFlagCaptureEvent extends BukkitArenaPlayerEvent {
     }
 
     public Integer computeFlagsTotalCaptured(ArenaPlayer player) {
-        // return player.getStat(ArenaCtf.FLAGS_CAPTURED_STAT);
-
         ArenaTeam team = player.getTeam();
         if (team == null) {
             return -1;
         }
 
-        Integer score = player.getStat(ArenaCtf.FLAGS_CAPTURED_STAT);
+        Integer score = 0;
+        ArenaStat<Number> stat = (ArenaStat<Number>) ArenaStats.get("flags-captured");
 
-        // Integer score = 0;
-        // ArenaStat<Number> stat = (ArenaStat<Number>) ArenaStats.get("flags-captured");
-
-        // Set<ArenaPlayer> players = this.competition.getTeamManager().getPlayersOnTeam(team);
-        // for (ArenaPlayer teamPlayer : players) {
-        //     score += teamPlayer.stat(stat).orElse(0).intValue();
-        // }
+        Set<ArenaPlayer> players = player.getCompetition().getTeamManager().getPlayersOnTeam(team);
+        for (ArenaPlayer teamPlayer : players) {
+            score += teamPlayer.stat(stat).orElse(0).intValue();
+        }
 
         return score;
     }
