@@ -123,8 +123,19 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
                         continue;
                     }
 
+                    boolean hasAFriendCapturingFlag = false;
+                    for (ArenaPlayer anyPlayer : this.getPlayers()) {
+                        if (anyPlayer.getTeam().equals(arenaPlayer.getTeam())) {
+                            // If a player on the same team is already capturing the flag, don't allow another player to capture it
+                            if (this.capturingFlags.containsKey(anyPlayer) || this.capturedFlags.containsKey(anyPlayer)) {
+                                hasAFriendCapturingFlag = true;
+                                break;
+                            }
+                        }
+                    }
+
                     // Already capturing (or holds a captured flag)
-                    if (this.capturingFlags.containsKey(arenaPlayer) || this.capturedFlags.containsKey(arenaPlayer)) {
+                    if (hasAFriendCapturingFlag) {
                         continue;
                     }
 
