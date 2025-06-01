@@ -36,10 +36,10 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
     private final CtfMap map;
 
     private final List<ActiveFlag> flags = new ArrayList<>();
-    
+
     private final Map<ArenaPlayer, ActiveFlag> capturedFlags = new HashMap<>();
     private final Map<ArenaPlayer, CaptureInfo> capturingFlags = new HashMap<>();
-    
+
     private BukkitTask tickTask;
 
     public CtfCompetition(CtfArena arena, CompetitionType type, CtfMap map) {
@@ -76,7 +76,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
 
         this.flags.clear();
     }
-    
+
     public void tickFlags() {
         // See if any players are capturing flags
         for (ActiveFlag flag : List.copyOf(this.flags)) {
@@ -122,7 +122,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
 
                         continue;
                     }
-                    
+
                     // Already capturing (or holds a captured flag)
                     if (this.capturingFlags.containsKey(arenaPlayer) || this.capturedFlags.containsKey(arenaPlayer)) {
                         continue;
@@ -136,7 +136,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
                 }
             }
         }
-        
+
         Duration captureTime = ArenaCtf.getInstance().getMainConfig().getCaptureTime();
         for (Map.Entry<ArenaPlayer, CaptureInfo> entry : this.capturingFlags.entrySet()) {
             // Check if the player has been capturing the flag for the required time
@@ -177,7 +177,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
 
         flag.removeFlag();
     }
-    
+
     public void dropFlag(ArenaPlayer player) {
         ActiveFlag flag = this.capturedFlags.remove(player);
         if (flag == null) {
@@ -189,7 +189,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
 
         flag.dropFlag(player.getPlayer().getLocation());
     }
-    
+
     private void captureFlag(ArenaPlayer player) {
         ActiveFlag flag = this.capturedFlags.remove(player);
         if (flag == null) {
@@ -224,22 +224,22 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
     public void startTickingFlags() {
         this.tickTask = Bukkit.getScheduler().runTaskTimer(this.arena.getPlugin(), this::tickFlags, 0, 1);
     }
-    
+
     public void stopTickingFlags() {
         if (this.tickTask != null) {
             this.tickTask.cancel();
             this.tickTask = null;
         }
-        
+
         this.capturedFlags.clear();
         this.capturingFlags.clear();
     }
-    
+
     private void broadcast(Message message, Component... replacements) {
         for (ArenaPlayer player : this.getCompetition().getPlayers()) {
             message.send(player.getPlayer(), replacements);
         }
-        
+
         for (ArenaPlayer player : this.getCompetition().getSpectators()) {
             message.send(player.getPlayer(), replacements);
         }
@@ -326,13 +326,13 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
             this.placed = false;
             this.flagLocation.getBlock().setType(Material.AIR);
         }
-        
+
         public void dropFlag(Location location) {
             this.dropTime = System.currentTimeMillis();
             this.updateLocation(location);
             this.placeFlag(location.getYaw());
         }
-        
+
         public void updateLocation(Location location) {
             int highestBlockY = location.getWorld().getHighestBlockYAt(location) + 1;
             this.flagLocation = new Location(location.getWorld(), location.getX(), highestBlockY, location.getZ(), location.getYaw(), location.getPitch());
@@ -358,7 +358,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
             }
         }
     }
-    
+
     public record CaptureInfo(ActiveFlag flag, long startTime) {
     }
 }
