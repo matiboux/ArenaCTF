@@ -18,12 +18,6 @@ public class ArenaFlagPickupEvent extends BukkitArenaPlayerEvent {
         super(player.getArena(), player);
     }
 
-    @Override
-    public Resolver resolve() {
-        return super.resolve().toBuilder()
-                .build();
-    }
-
     @NotNull
     @Override
     public HandlerList getHandlers() {
