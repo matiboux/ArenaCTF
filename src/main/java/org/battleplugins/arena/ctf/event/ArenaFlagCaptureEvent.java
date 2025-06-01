@@ -28,7 +28,7 @@ public class ArenaFlagCaptureEvent extends BukkitArenaPlayerEvent {
     public int computeFlagsTotalCaptured(ArenaPlayer player) {
         ArenaTeam team = player.getTeam();
         if (team == null) {
-            return;
+            return -1;
         }
 
         ArenaStat<Number> stat = (ArenaStat<Number>) ArenaStats.get("flags-captured");
