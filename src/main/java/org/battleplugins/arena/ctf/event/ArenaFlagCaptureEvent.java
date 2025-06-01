@@ -11,6 +11,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 import org.battleplugins.arena.stat.ArenaStat;
+import org.battleplugins.arena.stat.ArenaStats;
 import org.battleplugins.arena.team.ArenaTeam;
 import java.util.Set;
 
@@ -25,28 +26,29 @@ public class ArenaFlagCaptureEvent extends BukkitArenaPlayerEvent {
         super(player.getArena(), player);
     }
 
-    public int computeFlagsTotalCaptured(ArenaPlayer player) {
-        ArenaTeam team = player.getTeam();
-        if (team == null) {
-            return -1;
-        }
+    // public int computeFlagsTotalCaptured(ArenaPlayer player) {
+    //     ArenaTeam team = player.getTeam();
+    //     if (team == null) {
+    //         return -1;
+    //     }
 
-        ArenaStat<Number> stat = (ArenaStat<Number>) ArenaStats.get("flags-captured");
+    //     ArenaStat<Number> stat = (ArenaStat<Number>) ArenaStats.get("flags-captured");
 
-        Set<ArenaPlayer> players = this.competition.getTeamManager().getPlayersOnTeam(team);
-        int score = 0;
-        for (ArenaPlayer teamPlayer : players) {
-            score += teamPlayer.stat(stat).orElse(0).intValue();
-        }
+    //     Set<ArenaPlayer> players = this.competition.getTeamManager().getPlayersOnTeam(team);
+    //     int score = 0;
+    //     for (ArenaPlayer teamPlayer : players) {
+    //         score += teamPlayer.stat(stat).orElse(0).intValue();
+    //     }
 
-        return score;
-    }
+    //     return score;
+    // }
 
     @Override
     public Resolver resolve() {
         return super.resolve().toBuilder()
                 .define(FLAGS_CAPTURED, ResolverProvider.simple(this.getArenaPlayer().getStat(ArenaCtf.FLAGS_CAPTURED_STAT), String::valueOf))
-                .define(FLAGS_TOTAL_CAPTURED, ResolverProvider.simple(this.computeFlagsTotalCaptured(this.getArenaPlayer()), String::valueOf))
+                .define(FLAGS_TOTAL_CAPTURED, ResolverProvider.simple(this.getArenaPlayer().getStat(ArenaCtf.FLAGS_CAPTURED_STAT), String::valueOf))
+                // .define(FLAGS_TOTAL_CAPTURED, ResolverProvider.simple(this.computeFlagsTotalCaptured(this.getArenaPlayer()), String::valueOf))
                 .build();
     }
 
