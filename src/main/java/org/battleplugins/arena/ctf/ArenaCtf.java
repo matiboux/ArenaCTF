@@ -7,6 +7,7 @@ import org.battleplugins.arena.ctf.action.PlaceFlagsAction;
 import org.battleplugins.arena.ctf.action.RemoveFlagsAction;
 import org.battleplugins.arena.ctf.arena.CtfArena;
 import org.battleplugins.arena.ctf.event.ArenaFlagCaptureEvent;
+import org.battleplugins.arena.ctf.event.ArenaFlagStealEvent;
 import org.battleplugins.arena.ctf.event.ArenaFlagDropEvent;
 import org.battleplugins.arena.ctf.event.ArenaFlagPickupEvent;
 import org.battleplugins.arena.ctf.event.ArenaFlagReturnEvent;
@@ -31,6 +32,7 @@ public class ArenaCtf extends JavaPlugin {
 
     public static final ArenaEventType<ArenaFlagCaptureEvent> FLAG_CAPTURE_EVENT = ArenaEventType.create("on-flag-capture", ArenaFlagCaptureEvent.class);
     public static final ArenaEventType<ArenaFlagPickupEvent> FLAG_PICKUP_EVENT = ArenaEventType.create("on-flag-pickup", ArenaFlagPickupEvent.class);
+    public static final ArenaEventType<ArenaFlagStealEvent> FLAG_STEAL_EVENT = ArenaEventType.create("on-flag-steal", ArenaFlagStealEvent.class);
     public static final ArenaEventType<ArenaFlagDropEvent> FLAG_DROP_EVENT = ArenaEventType.create("on-flag-drop", ArenaFlagDropEvent.class);
     public static final ArenaEventType<ArenaFlagReturnEvent> FLAG_RETURN_EVENT = ArenaEventType.create("on-flag-return", ArenaFlagReturnEvent.class);
 
