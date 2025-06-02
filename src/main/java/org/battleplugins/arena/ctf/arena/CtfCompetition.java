@@ -8,6 +8,7 @@ import org.battleplugins.arena.ctf.ArenaCtf;
 import org.battleplugins.arena.ctf.CtfMessages;
 import org.battleplugins.arena.ctf.CtfUtil;
 import org.battleplugins.arena.ctf.event.ArenaFlagCaptureEvent;
+import org.battleplugins.arena.ctf.event.ArenaFlagStealEvent;
 import org.battleplugins.arena.ctf.event.ArenaFlagDropEvent;
 import org.battleplugins.arena.ctf.event.ArenaFlagPickupEvent;
 import org.battleplugins.arena.ctf.event.ArenaFlagReturnEvent;
@@ -175,6 +176,7 @@ public class CtfCompetition extends LiveCompetition<CtfCompetition> {
         this.capturedFlags.put(player, flag);
         this.capturingFlags.remove(player);
 
+        this.getArena().getEventManager().callEvent(new ArenaFlagStealEvent(player));
         this.broadcast(CtfMessages.FLAG_STOLEN, flag.team.getFormattedName(), Component.text(player.getPlayer().getName()));
         this.broadcastSounds(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, Sound.BLOCK_ANVIL_PLACE, 0.0f);
 
