@@ -7,12 +7,12 @@ import org.battleplugins.arena.event.player.BukkitArenaPlayerEvent;
 import org.battleplugins.arena.resolver.Resolver;
 import org.battleplugins.arena.resolver.ResolverKey;
 import org.battleplugins.arena.resolver.ResolverProvider;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
-
 import org.battleplugins.arena.stat.ArenaStat;
 import org.battleplugins.arena.stat.ArenaStats;
 import org.battleplugins.arena.team.ArenaTeam;
+import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Set;
 
 @EventTrigger("on-flag-capture")
